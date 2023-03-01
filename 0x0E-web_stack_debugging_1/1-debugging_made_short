@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# debugging nginx with kill process
+sudo ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+sudo service nginx restart
+sudo pkill "nginx"

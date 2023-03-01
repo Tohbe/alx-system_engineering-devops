@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# change nginx to lower priv user
+sudo pkill "apache2"
+sudo chmod 644 /etc/nginx/nginx.conf
+chown -R nginx:nginx /etc/nginx/nginx.conf
+sudo sed -i 's/80 default/8080 default/' /etc/nginx/sites-available/default
+sudo -u nginx service nginx restart

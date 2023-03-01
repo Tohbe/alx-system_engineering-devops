@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# custom header
+SRC="/etc/nginx/sites-available/default"
+REDIR="\\\tlocation /redirect_me {\n\t\t return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n"
+ERRDIR="\\\n\terror_page 404 /custom_404.html;\n\tlocation = /custom_404.html {\n\t\troot /usr/share/nginx/html;\n\t\tinternal;\n\t}\n"
+HEADER="\\\n\tadd_header X-Served-By \$HOSTNAME;\n"
+sudo apt-get -y update
+sudo apt-get -y install nginx
+echo "Holberton School" | sudo tee /usr/share/nginx/html/index.html
+sudo sed -i "30i $REDIR" $SRC
+sudo sed -i "28i $HEADER" $SRC
+echo "Ceci n'est pas une page" | sudo tee /usr/share/nginx/html/custom_404.html
+sudo sed -i "48i $ERRDIR" $SRC
+sudo service nginx restart
